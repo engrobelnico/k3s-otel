@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: opensearch-opentelemetry-collector
+                name: otel-opentelemetry-collector
                 port:
                   number: 4318
