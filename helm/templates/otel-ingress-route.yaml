@@ -6,6 +6,7 @@ metadata:
   annotations:
     # spec.ingressClassName: traefik # This was an incorrect placement for ingressClassName
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: opensearch-stripprefix-otel@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
