@@ -1,0 +1,40 @@
+{
+    "resourceSpans": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "test-otel-curl"
+              }
+            }
+          ]
+        },
+        "scopeSpans": [
+          {
+            "scope": {
+              "name": "manual-test"
+            },
+            "spans": [
+              {
+                "traceId": "TRACE_ID",
+                "spanId": "afc8a95ba2d7569c",
+                "parentSpanId": "afc8a95ba2d3291c",
+                "name": "otelspan",
+                "startTimeUnixNano": TIMESTAMP_SPAN,
+            	  "endTimeUnixNano": DURATION_SPAN,
+                "kind": 2,
+                "droppedAttributesCount": 0,
+                "events": [],
+                "droppedEventsCount": 0,
+                "status": {
+                  "code": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+   }

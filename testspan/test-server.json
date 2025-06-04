@@ -1,0 +1,23 @@
+[
+    {
+        "traceId": "TRACE_ID",
+        "parentId": "95fe04cdd904319b",
+        "id": "e457b5a2e4d86bd1",
+        "kind": "SERVER",
+        "name": "get_test_function",
+        "timestamp": TIMESTAMP_SPAN,
+        "duration": DURATION_SPAN,
+        "localEndpoint": {
+            "serviceName": "proxy",
+            "ipv4": "10.55.155.231"
+        },
+        "tags": {
+            "http.method": "POST",
+            "http.path": "/api/proxy/get_test_function",
+            "http.return_code": "200",
+            "application.name": "PROXY",
+            "application.lv-traceid":"6b221d5bc9e6496c",
+            "application.lv-productid": "LP0002,LP0003"
+        }
+    }
+]

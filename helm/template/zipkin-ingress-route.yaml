@@ -1,0 +1,21 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: otel-collector-zipkin
+  namespace: opensearch
+  annotations:
+    # spec.ingressClassName: traefik # This was an incorrect placement for ingressClassName
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: kube.local
+      http:
+        paths:
+          - path: /zipkin
+            pathType: Prefix
+            backend:
+              service:
+                name: opensearch-opentelemetry-collector
+                port:
+                  number: 9411

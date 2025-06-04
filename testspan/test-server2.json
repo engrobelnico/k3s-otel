@@ -1,0 +1,23 @@
+[
+    {
+        "traceId": "TRACE_ID",
+        "parentId": "e457b5a2e4d86bd1",
+        "id": "163419a377eced3e",
+        "kind": "SERVER",
+        "name": "get_test_function",
+        "timestamp": TIMESTAMP_SPAN,
+        "duration": DURATION_SPAN,
+        "localEndpoint": {
+            "serviceName": "server",
+            "ipv4": "10.55.155.234"
+        },
+        "tags": {
+            "http.method": "POST",
+            "http.path": "/api/get_test_function",
+            "http.return_code": "200",
+            "application.name": "SERVER",
+            "application.lv-traceid":"6b221d5bc9e6496c",
+            "application.lv-productid": "LP0002,LP0003"
+        }
+    }
+]

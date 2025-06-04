@@ -1,0 +1,39 @@
+[
+    {
+      "id": "6b221d5bc9e6496c",
+      "traceId": "TRACE_ID",
+      "parentId": "163419a377eced3e",
+      "name": "get /api",
+      "timestamp": TIMESTAMP_SPAN,
+      "duration": DURATION_SPAN,
+      "kind": "SERVER",
+      "annotations": [
+        {
+            "timestamp": START_REMOTE,
+            "value": "Start remote"
+        },
+        {
+            "timestamp": STOP_REMOTE,
+            "value": "Stop remote"
+        }
+    ],
+      "localEndpoint": {
+        "serviceName": "backend",
+        "ipv4": "192.168.99.1",
+        "port": 3306
+      },
+      "remoteEndpoint": {
+        "serviceName": "remote",
+        "ipv4": "172.19.0.2",
+        "port": 58648
+      },
+      "tags": {
+        "http.method": "GET",
+        "http.path": "/api",
+        "http.return_code": "200",
+        "application.name": "BACKEND",
+        "application.lv-traceid":"6b221d5bc9e6496c",
+        "application.lv-productid": "LP0002"
+      }
+    }
+  ]

@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v2 # Check API version for your Kyverno; v1 for older
+kind: PolicyException
+metadata:
+  name: otel-collector-exception # Name your exception
+  namespace: kyverno # Or the namespace configured for exceptions, or prometheus namespace
+spec:
+  exceptions:
+    # List the *exact* policy and rule names you found in Step 1
+    - policyName: disallow-host-path" # Example policy name
+      ruleNames: 
+        - "host-path"     # Example rule name
+    # Add entries for all policies/rules blocking node-exporter
+  match:
+    any: # Match if any of the resource descriptions below are met
+    - resources:
+        kinds:
+          - Pod
+        namespaces:
+          - "kube-system" # Your prometheus namespace
+        selector:
+          matchLabels:
+            # Verify this label from your node-exporter Pods
+            app.kubernetes.io/name: opentelemetry-collector

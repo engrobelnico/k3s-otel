@@ -1,0 +1,9 @@
+dependencies:
+- name: data-prepper
+  repository: https://opensearch-project.github.io/helm-charts/
+  version: 0.3.1
+- name: opentelemetry-collector
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.125.0
+digest: sha256:ca75059e83bae0eba935ec686d1824bc96644e70a80d557f2d640d3e42195a0d
+generated: "2025-06-04T12:04:04.044506421+02:00"

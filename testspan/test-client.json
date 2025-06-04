@@ -1,0 +1,22 @@
+[
+    {
+        "traceId": "TRACE_ID",
+        "id": "95fe04cdd904319b",
+        "kind": "CLIENT",
+        "name": "get_test_function",
+        "timestamp": TIMESTAMP_SPAN,
+        "duration": DURATION_SPAN,
+        "localEndpoint": {
+            "serviceName": "client",
+            "ipv4": "10.55.155.230"
+        },
+        "tags": {
+            "http.method": "POST",
+            "http.path": "/api/test_function",
+            "http.return_code": "200",
+            "application.name": "CLIENT",
+            "application.lv-traceid":"6b221d5bc9e6496c",
+            "application.lv-productid": "LP0002,LP0003"
+        }
+    }
+]
