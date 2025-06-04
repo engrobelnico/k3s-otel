@@ -72,7 +72,6 @@ data-prepper:
               # This source listens for OTLP log data.
               # It shares the OTLP server with otel_trace_source, typically on port 21890 (gRPC) / 21891 (HTTP) when ssl is false.
               # Your OTel Collector is configured to send logs to port 21890.
-              port: 21890
               ssl: false
               authentication:
                 unauthenticated: {} # Matches OTel collector exporter which sends unauthenticated requests
