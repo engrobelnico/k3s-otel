@@ -69,29 +69,6 @@ opentelemetry-collector:
   image:
     repository: "otel/opentelemetry-collector-contrib"
     tag: "0.127.0"
-  # This section defines which ports will be opened on the Kubernetes Service
-  # created for the OpenTelemetry Collector.
-  ports:
-    otlp:
-      enabled: true
-      containerPort: 4317
-      servicePort: 4317
-      hostPort: 4317
-      protocol: TCP
-      # nodePort: 30317
-      appProtocol: grpc
-    otlp-http:
-      enabled: true
-      containerPort: 4318
-      servicePort: 4318
-      hostPort: 4318
-      protocol: TCP
-    zipkin:
-      enabled: true
-      containerPort: 9411
-      servicePort: 9411
-      hostPort: 9411
-      protocol: TCP
   
   config:
     receivers:
@@ -100,7 +77,7 @@ opentelemetry-collector:
               http: 
                 cors:
                   allowed_origins:
-                    - http://kube.local
+                    - "*"
               grpc: {} 
         zipkin: {}
 
