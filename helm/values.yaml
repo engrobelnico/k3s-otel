@@ -146,6 +146,4 @@ opentelemetry-collector:
               exporters: [debug,otlp/data-prepper]
             metrics: null
             logs:
-              receivers: [otlp]
-              processors: [batch/logs]
               exporters: [otlp/data-prepper-logs]
