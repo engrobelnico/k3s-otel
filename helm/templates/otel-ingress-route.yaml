@@ -12,7 +12,7 @@ spec:
     - host: kube.local
       http:
         paths:
-          - path: /otel/
+          - path: /otel
             pathType: Prefix
             backend:
               service:
