@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix-zipkin
+  namespace: opensearch # Ensure this is the namespace where your Ingress is, or one Traefik monitors for CRDs
+spec:
+  stripPrefix:
+    prefixes:
+      - /zipkin
+    # forceSlash: false # Defaults to true, usually fine. Set to false if issues with trailing slashes.
