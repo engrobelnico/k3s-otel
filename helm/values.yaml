@@ -78,8 +78,6 @@ data-prepper:
             bounded_blocking:
               buffer_size: 10240 # Maximum number of records the buffer can hold
               batch_size: 256    # Number of records to send to the sink in a single batch
-          processor:
-            - otel_logs: {} # Standard processor for OTLP logs, prepares them for sinks
           sink:
             - opensearch:
                 hosts: ["http://opensearch-masters.opensearch.svc.cluster.local:9200"]
