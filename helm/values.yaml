@@ -65,8 +65,10 @@ data-prepper:
             - stdout: {}
 
         logs-pipeline:
+          workers: 1
+          delay: "100"
           source:
-            - otel_logs_source:
+            otel_logs_source:
               # This source listens for OTLP log data.
               # It shares the OTLP server with otel_trace_source, typically on port 21890 (gRPC) / 21891 (HTTP) when ssl is false.
               # Your OTel Collector is configured to send logs to port 21890.
@@ -76,13 +78,14 @@ data-prepper:
                 unauthenticated: {} # Matches OTel collector exporter which sends unauthenticated requests
           buffer:
             bounded_blocking:
-              buffer_size: 10240 # Maximum number of records the buffer can hold
-              batch_size: 256    # Number of records to send to the sink in a single batch
+              buffer_size: 512 # Maximum number of records the buffer can hold
+              batch_size: 64    # Number of records to send to the sink in a single batch
           sink:
             - opensearch:
                 hosts: ["http://opensearch-masters.opensearch.svc.cluster.local:9200"]
                 insecure: true # Set to false if OpenSearch uses TLS and you configure Data Prepper's sink for TLS
                 index_type: custom
+                bulk_size: 10
                 index: "otel-logs-%{yyyy.MM.dd}" # Dynamic index name based on date, e.g., otel-logs-2023.10.27
                 username: "admin"
                 password: "admin"
@@ -126,7 +129,7 @@ opentelemetry-collector:
 
     exporters:
         debug: 
-          verbosity: detailed
+          #verbosity: detailed
         otlp/data-prepper:
             endpoint: otel-data-prepper.opensearch.svc.cluster.local:21890
             tls:
