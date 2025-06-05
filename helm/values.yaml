@@ -82,7 +82,7 @@ data-prepper:
               batch_size: 64    # Number of records to send to the sink in a single batch
           sink:
             - opensearch:
-                hosts: ["http://opensearch-masters.opensearch.svc.cluster.local:9200"]
+                hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
                 insecure: true # Set to false if OpenSearch uses TLS and you configure Data Prepper's sink for TLS
                 index_type: custom
                 bulk_size: 10
