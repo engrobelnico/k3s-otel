@@ -136,7 +136,7 @@ opentelemetry-collector:
               insecure: true
               insecure_skip_verify: true
         otlp/data-prepper-logs:
-          endpoint: otel-data-prepper.opensearch.svc.cluster.local:2189O
+          endpoint: otel-data-prepper.opensearch.svc.cluster.local:21891
           tls:
             insecure: true
             insecure_skip_verify: true
