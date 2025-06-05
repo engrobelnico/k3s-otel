@@ -82,6 +82,7 @@ data-prepper:
             - opensearch:
                 hosts: ["http://opensearch-masters.opensearch.svc.cluster.local:9200"]
                 insecure: true # Set to false if OpenSearch uses TLS and you configure Data Prepper's sink for TLS
+                index_type: custom
                 index: "otel-logs-%{yyyy.MM.dd}" # Dynamic index name based on date, e.g., otel-logs-2023.10.27
                 username: "admin"
                 password: "admin"
