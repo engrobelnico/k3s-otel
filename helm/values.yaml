@@ -78,14 +78,13 @@ data-prepper:
                 unauthenticated: {} # Matches OTel collector exporter which sends unauthenticated requests
           buffer:
             bounded_blocking:
-              buffer_size: 512 # Maximum number of records the buffer can hold
-              batch_size: 64    # Number of records to send to the sink in a single batch
+              buffer_size: 10240 # Maximum number of records the buffer can hold
+              batch_size: 160    # Number of records to send to the sink in a single batch
           sink:
             - opensearch:
                 hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
                 insecure: true # Set to false if OpenSearch uses TLS and you configure Data Prepper's sink for TLS
                 index_type: custom
-                bulk_size: 10
                 index: "otel-logs-%{yyyy.MM.dd}" # Dynamic index name based on date, e.g., otel-logs-2023.10.27
                 username: "admin"
                 password: "admin"
@@ -125,7 +124,7 @@ opentelemetry-collector:
             send_batch_size: 50
         batch/logs:
             timeout: 1s
-            send_batch_size: 100
+            send_batch_size: 50
 
     exporters:
         debug: 
