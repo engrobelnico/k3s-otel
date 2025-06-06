@@ -1,20 +1,16 @@
-extraEnv:
-  - name: SECRET_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: opensearch-admin-password
-        key: username
-  - name: SECRET_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: opensearch-admin-password
-        key: password
 
 data-prepper:
-  extraEnvFrom: # Add this section
-    - secretRef:
-        # This should match the name of your secret in the 'opensearch' namespace
-        name: opensearch-admin-password
+  extraEnv:
+    - name: SECRET_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: opensearch-admin-password
+          key: username
+    - name: SECRET_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: opensearch-admin-password
+          key: password
   # Tells the data-prepper sub-chart to use an existing ConfigMap
   # for its pipeline configurations.
   pipelineConfig:
