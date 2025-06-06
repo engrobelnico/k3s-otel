@@ -1,3 +1,15 @@
+extraEnv:
+  - name: SECRET_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-admin-password
+        key: username
+  - name: SECRET_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-admin-password
+        key: password
+
 data-prepper:
   extraEnvFrom: # Add this section
     - secretRef:
@@ -43,8 +55,8 @@ data-prepper:
             - opensearch:
                 hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
                 insecure: true
-                username: "${username}"
-                password: "${password}"
+                username: "${SECRET_USERNAME}"
+                password: "${SECRET_PASSWORD}"
                 index_type: trace-analytics-raw
             - stdout: {}
 
@@ -63,8 +75,8 @@ data-prepper:
                 hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
                 # The insecure option is used here for simplicity, but in production,
                 insecure: true
-                username: "${username}"
-                password: "${password}"
+                username: "${SECRET_USERNAME}"
+                password: "${SECRET_PASSWORD}"
                 index_type: trace-analytics-service-map
             - stdout: {}
 
@@ -90,8 +102,8 @@ data-prepper:
                 insecure: true # Set to false if OpenSearch uses TLS and you configure Data Prepper's sink for TLS
                 index_type: custom
                 index: "otel-logs-%{yyyy.MM.dd}" # Dynamic index name based on date, e.g., otel-logs-2023.10.27
-                username: "${username}"
-                password: "${password}"
+                username: "${SECRET_USERNAME}"
+                password: "${SECRET_PASSWORD}"
               # Optional: Define an OpenSearch index template for better control over mappings and settings for your log indices.
               # template_file: "/usr/share/data-prepper/pipelines/opensearch_log_template.json"
               # document_id_field: "traceId" # If you want to use a field from the log as the document ID
