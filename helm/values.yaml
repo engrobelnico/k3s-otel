@@ -116,7 +116,14 @@ opentelemetry-collector:
                 cors:
                   allowed_origins:
                     - "*"
-              grpc: {} 
+              grpc: {}
+        jaeger:
+            protocols:
+              grpc: # Default port 14250
+              thrift_http: # Default port 14268
+              # You can also enable other Jaeger protocols if needed
+              # thrift_compact: # Default port 6831/udp
+              # thrift_binary: # Default port 6832/udp
         zipkin: {}
 
     processors:
@@ -144,7 +151,7 @@ opentelemetry-collector:
     service:
         pipelines:
             traces:
-              receivers: [otlp, zipkin]
+              receivers: [otlp, jaeger, zipkin]
               processors: [batch/traces]
               exporters: [debug,otlp/data-prepper]
             metrics: null
