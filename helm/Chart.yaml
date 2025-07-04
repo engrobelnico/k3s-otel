@@ -28,5 +28,5 @@ dependencies:
   version: 0.3.1
   repository: https://opensearch-project.github.io/helm-charts/
 - name: opentelemetry-collector
-  version: 0.125.0
+  version: 0.127.2
   repository: https://open-telemetry.github.io/opentelemetry-helm-charts
