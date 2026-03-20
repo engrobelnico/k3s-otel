@@ -1,7 +1,10 @@
 
 # Pipeline definition kept here in values.yaml.
-# Password is injected at Helm render time via lookup from opensearch-admin-password secret.
-# (see templates/dp-pipeline-secret.yaml)
+# dataPrepperPassword is NOT stored in git — it is set as a Helm parameter override
+# by deploy-otel.sh using: argocd app set otel --helm-set-string dataPrepperPassword=XXX
+# (stored only in the ArgoCD Application object in the cluster)
+dataPrepperPassword: ""
+
 dataPrepperPipeline: |
   entry-pipeline:
     delay: "100"
@@ -82,7 +85,7 @@ dataPrepperPipeline: |
 
 data-prepper:
   # Pipeline secret is created by templates/dp-pipeline-secret.yaml using Helm lookup.
-  # Password is read from opensearch-admin-password secret at render time — not stored in git.
+  # Password is injected via dataPrepperPassword Helm parameter (set by deploy-otel.sh).
   pipelineConfig:
     demoPipeline: ""
     enabled: false
