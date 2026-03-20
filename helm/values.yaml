@@ -124,11 +124,15 @@ opentelemetry-collector:
         zipkin: {}
 
     processors:
+        memory_limiter:
+            check_interval: 5s
+            limit_percentage: 80
+            spike_limit_percentage: 25
         batch/traces:
             timeout: 1s
             send_batch_size: 50
         batch/logs:
-            timeout: 1s
+            timeout: 5s
             send_batch_size: 50
 
     exporters:
@@ -144,6 +148,8 @@ opentelemetry-collector:
           tls:
             insecure: true
             insecure_skip_verify: true
+          sending_queue:
+            queue_size: 5000
               
     service:
         pipelines:
@@ -154,5 +160,5 @@ opentelemetry-collector:
             metrics: null
             logs:
               receivers: [otlp]
-              processors: [batch/logs]
+              processors: [memory_limiter, batch/logs]
               exporters: [otlp/data-prepper-logs]
