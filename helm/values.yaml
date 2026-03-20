@@ -96,10 +96,10 @@ data-prepper:
 opentelemetry-collector:
   mode: deployment
 
-  # Run as root so the filelog receiver can read /var/log/pods (rw-r----- root root)
-  securityContext:
-    runAsUser: 0
-    runAsGroup: 0
+  # Add GID 0 as supplemental group so the filelog receiver can read
+  # /var/log/pods log files (permissions: rw-r----- root root)
+  podSecurityContext:
+    supplementalGroups: [0]
 
   presets:
     logsCollection:
