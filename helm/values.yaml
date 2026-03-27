@@ -137,12 +137,15 @@ opentelemetry-collector:
             operators:
               - type: regex_parser
                 regex: '^(?P<time>[^ ]+) (?P<stream>stdout|stderr) (?P<logtag>[^ ]*) (?P<log>.*)$'
+                on_error: send
                 timestamp:
                   parse_from: attributes.time
-                  layout: '%Y-%m-%dT%H:%M:%S.%LZ'
+                  layout_type: gotime
+                  layout: '2006-01-02T15:04:05.999999999Z07:00'
               - type: regex_parser
                 regex: '^/var/log/pods/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[a-f0-9\-]+)/(?P<container_name>[^/]+)/(\d+)\.log$'
                 parse_from: attributes["log.file.path"]
+                on_error: send
               - type: move
                 from: attributes.namespace
                 to: resource["k8s.namespace.name"]
