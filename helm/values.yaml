@@ -75,14 +75,31 @@ dataPrepperPipeline: |
       bounded_blocking:
         buffer_size: 10240
         batch_size: 160
+    processor:
+      - otel_logs: {}
     sink:
       - opensearch:
-          hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
-          insecure: true
-          index_type: custom
-          index: "otel-logs-%{yyyy.MM.dd}"
-          username: "admin"
-          password: "__OS_PASSWORD__"
+        hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
+        insecure: true
+        index_type: custom
+        index: "otel-logs-%{yyyy.MM.dd}"
+        username: "admin"
+        password: "__OS_PASSWORD__"
+        # Create index template on startup
+        index_template:
+          name: "otel-logs-template"
+          pattern: "otel-logs-*"
+          template:
+            mappings:
+              properties:
+                timestamp:
+                  type: date
+                body:
+                  type: text
+                resource:
+                  type: object
+                attributes:
+                  type: object
 
 data-prepper:
   # Pipeline secret is created by templates/dp-pipeline-secret.yaml using Helm lookup.
@@ -129,35 +146,38 @@ opentelemetry-collector:
               # thrift_binary: # Default port 6832/udp
         zipkin: {}
         filelog:
-            include: ["/var/log/pods/*/*/*.log"]
-            exclude: ["/var/log/pods/*/opentelemetry-collector/*.log"]
-            start_at: beginning
-            include_file_path: true
-            include_file_name: false
-            operators:
-              - type: regex_parser
-                regex: '^(?P<time>[^ ]+) (?P<stream>stdout|stderr) (?P<logtag>[^ ]*) (?P<log>.*)$'
-                on_error: send
-                timestamp:
-                  parse_from: attributes.time
-                  layout_type: gotime
-                  layout: '2006-01-02T15:04:05.999999999Z07:00'
-              - type: regex_parser
-                regex: '^/var/log/pods/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[a-f0-9\-]+)/(?P<container_name>[^/]+)/(\d+)\.log$'
-                parse_from: attributes["log.file.path"]
-                on_error: send
-              - type: move
-                from: attributes.namespace
-                to: resource["k8s.namespace.name"]
-              - type: move
-                from: attributes.pod_name
-                to: resource["k8s.pod.name"]
-              - type: move
-                from: attributes.container_name
-                to: resource["k8s.container.name"]
-              - type: move
-                from: attributes.uid
-                to: resource["k8s.pod.uid"]
+          include: ["/var/log/pods/*/*/*.log"]
+          exclude: ["/var/log/pods/*/opentelemetry-collector/*.log"]
+          start_at: beginning
+          include_file_path: true
+          include_file_name: false
+          operators:
+            - type: regex_parser
+              regex: '^(?P<time>[^ ]+) (?P<stream>stdout|stderr) (?P<logtag>[^ ]*) (?P<log>.*)$'
+              on_error: send
+              timestamp:
+                parse_from: attributes.time
+                layout_type: gotime
+                layout: '2006-01-02T15:04:05.999999999Z07:00'
+            - type: regex_parser
+              regex: '^/var/log/pods/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[a-f0-9\-]+)/(?P<container_name>[^/]+)/(\d+)\.log$'
+              parse_from: attributes["log.file.path"]
+              on_error: send
+            - type: move
+              from: attributes.namespace
+              to: resource["k8s.namespace.name"]
+            - type: move
+              from: attributes.pod_name
+              to: resource["k8s.pod.name"]
+            - type: move
+              from: attributes.container_name
+              to: resource["k8s.container.name"]
+            - type: move
+              from: attributes.uid
+              to: resource["k8s.pod.uid"]
+            - type: move
+              from: attributes.log
+              to: body
 
     processors:
         memory_limiter:
