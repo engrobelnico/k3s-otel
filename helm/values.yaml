@@ -75,33 +75,18 @@ dataPrepperPipeline: |
       bounded_blocking:
         buffer_size: 10240
         batch_size: 160
-    processor:
-      - otel_logs: {}
     sink:
       - opensearch:
           hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
           insecure: true
           index_type: custom
-          index: "otel-logs-%{yyyy.MM.dd}"
+          index: "otel-logs"
           username: "admin"
           password: "__OS_PASSWORD__"
-          # Create index template on startup
-          index_template:
-            name: "otel-logs-template"
-            pattern: "otel-logs-*"
-            template:
-              mappings:
-                properties:
-                  timestamp:
-                    type: date
-                  body:
-                    type: text
-                  resource:
-                    type: object
-                attributes:
-                  type: object
 
 data-prepper:
+  image:
+    tag: "2.14.1"
   # Pipeline secret is created by templates/dp-pipeline-secret.yaml using Helm lookup.
   # Password is injected via dataPrepperPassword Helm parameter (set by deploy-otel.sh).
   pipelineConfig:
