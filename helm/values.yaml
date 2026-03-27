@@ -218,3 +218,19 @@ opentelemetry-collector:
               receivers: [otlp, filelog]
               processors: [memory_limiter, batch/logs]
               exporters: [otlp/data-prepper-logs]
+
+  extraVolumes:
+    - name: varlogpods
+      hostPath:
+        path: /var/log/pods
+    - name: varlibdockercontainers
+      hostPath:
+        path: /var/lib/docker/containers
+
+  extraVolumeMounts:
+    - name: varlogpods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: varlibdockercontainers
+      mountPath: /var/lib/docker/containers
+      readOnly: true
