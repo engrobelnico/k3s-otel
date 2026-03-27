@@ -95,7 +95,7 @@ data-prepper:
 
 
 opentelemetry-collector:
-  mode: deployment
+  mode: daemonset
 
   # Add GID 0 as supplemental group so the filelog receiver can read
   # /var/log/pods log files (permissions: rw-r----- root root)
