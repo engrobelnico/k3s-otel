@@ -79,25 +79,25 @@ dataPrepperPipeline: |
       - otel_logs: {}
     sink:
       - opensearch:
-        hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
-        insecure: true
-        index_type: custom
-        index: "otel-logs-%{yyyy.MM.dd}"
-        username: "admin"
-        password: "__OS_PASSWORD__"
-        # Create index template on startup
-        index_template:
-          name: "otel-logs-template"
-          pattern: "otel-logs-*"
-          template:
-            mappings:
-              properties:
-                timestamp:
-                  type: date
-                body:
-                  type: text
-                resource:
-                  type: object
+          hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
+          insecure: true
+          index_type: custom
+          index: "otel-logs-%{yyyy.MM.dd}"
+          username: "admin"
+          password: "__OS_PASSWORD__"
+          # Create index template on startup
+          index_template:
+            name: "otel-logs-template"
+            pattern: "otel-logs-*"
+            template:
+              mappings:
+                properties:
+                  timestamp:
+                    type: date
+                  body:
+                    type: text
+                  resource:
+                    type: object
                 attributes:
                   type: object
 
