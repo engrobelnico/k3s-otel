@@ -166,18 +166,23 @@ opentelemetry-collector:
             - type: move
               from: attributes.namespace
               to: resource["k8s.namespace.name"]
+              on_error: send
             - type: move
               from: attributes.pod_name
               to: resource["k8s.pod.name"]
+              on_error: send
             - type: move
               from: attributes.container_name
               to: resource["k8s.container.name"]
+              on_error: send
             - type: move
               from: attributes.uid
               to: resource["k8s.pod.uid"]
+              on_error: send
             - type: move
               from: attributes.log
               to: body
+              on_error: send
 
     processors:
         memory_limiter:
