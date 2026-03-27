@@ -90,6 +90,8 @@ data-prepper:
   config:
     data-prepper-config.yaml: |
       ssl: false
+      peer_forwarder:
+        ssl: false
   # Pipeline secret is created by templates/dp-pipeline-secret.yaml using Helm lookup.
   # Password is injected via dataPrepperPassword Helm parameter (set by deploy-otel.sh).
   pipelineConfig:
