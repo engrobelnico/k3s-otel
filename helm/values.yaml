@@ -80,7 +80,7 @@ dataPrepperPipeline: |
           hosts: ["https://opensearch.opensearch.svc.cluster.local:9200"]
           insecure: true
           index_type: custom
-          index: "otel-logs"
+          index: "otel-logs-%{yyyy.MM.dd}"
           username: "admin"
           password: "__OS_PASSWORD__"
 
